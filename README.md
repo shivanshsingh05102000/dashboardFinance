@@ -1,4 +1,5 @@
-<img width="1380" height="946" alt="image" src="https://github.com/user-attachments/assets/95c11b1b-3b48-4080-99eb-eafc5f69bddc" />
+![Uploading screen-capture-20-trimmed.gif…]()
+
 # Finance Dashboard UI - Zorvyn Assessment
 
 A modern, responsive finance dashboard built with React, Tailwind CSS, Context API, and Recharts.
