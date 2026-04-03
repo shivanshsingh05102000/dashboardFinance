@@ -43,7 +43,7 @@ export default function SummaryCards() {
       hint: `${summary.savingsRate}% savings rate`,
       accent: "from-cyan-500/15 to-teal-500/20",
       valueColor: "text-slate-900 dark:text-slate-100",
-      iconColor: "text-teal-700 dark:text-teal-300",
+      iconColor: "text-slate-900 dark:text-teal-300",
     },
     {
       id: "income",
@@ -52,7 +52,7 @@ export default function SummaryCards() {
       hint: `${incomeCount} income transactions`,
       accent: "from-emerald-500/15 to-lime-500/20",
       valueColor: "text-slate-900 dark:text-slate-100",
-      iconColor: "text-emerald-700 dark:text-emerald-300",
+      iconColor: "text-slate-900 dark:text-emerald-300",
     },
     {
       id: "expense",
@@ -61,7 +61,7 @@ export default function SummaryCards() {
       hint: `${expenseCount} expense transactions`,
       accent: "from-rose-500/15 to-orange-500/20",
       valueColor: "text-slate-900 dark:text-slate-100",
-      iconColor: "text-rose-700 dark:text-rose-300",
+      iconColor: "text-slate-900 dark:text-rose-300",
     },
   ];
 

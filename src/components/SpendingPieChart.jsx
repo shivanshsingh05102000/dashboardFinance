@@ -11,7 +11,7 @@ function PieTooltip({ active, payload }) {
   return (
     <div className="surface-strong rounded-xl p-3 shadow-lg">
       <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{name}</p>
-      <p className="text-sm text-slate-800 dark:text-slate-300">{formatCurrency(value)}</p>
+      <p className="text-sm text-slate-900 dark:text-slate-300">{formatCurrency(value)}</p>
       <p className="text-xs text-slate-800 dark:text-slate-400">{row.percentage}% of expenses</p>
     </div>
   );
@@ -21,7 +21,7 @@ function PieLegend({ payload }) {
   return (
     <div className="mt-2 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3">
       {payload.map((entry) => (
-        <div key={entry.value} className="flex items-center gap-2 text-slate-800 dark:text-slate-300">
+        <div key={entry.value} className="flex items-center gap-2 text-slate-900 dark:text-slate-300">
           <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
           <span className="truncate">{entry.value}</span>
         </div>

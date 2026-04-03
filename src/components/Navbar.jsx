@@ -24,7 +24,7 @@ export default function Navbar() {
   const { role } = useAppContext();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[color:var(--line)] bg-[color:var(--surface-soft)]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-[color:var(--line)] bg-[color:var(--surface-soft)]">
       <div className="mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-400 shadow-md shadow-cyan-400/30">

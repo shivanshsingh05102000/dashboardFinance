@@ -45,12 +45,14 @@ export default function BalanceTrendChart() {
           expense: "#fb7185",
           grid: "#223048",
           tick: "#94a3b8",
+          legend: "#cbd5e1",
         }
       : {
           income: "#059669",
           expense: "#e11d48",
-          grid: "#dbe5ee",
-          tick: "#475569",
+          grid: "#cbd5e1",
+          tick: "#0f172a",
+          legend: "#0f172a",
         };
 
   return (
@@ -69,15 +71,15 @@ export default function BalanceTrendChart() {
           </defs>
 
           <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
-          <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12 }} axisLine={false} tickLine={false} />
+          <XAxis dataKey="label" tick={{ fill: colors.tick, fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
           <YAxis
-            tick={{ fill: colors.tick, fontSize: 12 }}
+            tick={{ fill: colors.tick, fontSize: 12, fontWeight: 600 }}
             axisLine={false}
             tickLine={false}
             tickFormatter={(value) => `${Math.round(value / 1000)}k`}
           />
           <Tooltip content={<ChartTooltip />} />
-          <Legend wrapperStyle={{ fontSize: "12px" }} />
+          <Legend wrapperStyle={{ fontSize: "12px", color: colors.legend, fontWeight: 600 }} />
 
           <Area type="monotone" dataKey="income" name="Income" stroke={colors.income} fill="url(#incomeGradient)" strokeWidth={2.2} />
           <Area type="monotone" dataKey="expense" name="Expense" stroke={colors.expense} fill="url(#expenseGradient)" strokeWidth={2.2} />

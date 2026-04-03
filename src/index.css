@@ -50,6 +50,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Force strong text contrast in light mode.
+   Colored text is allowed only for red/green status cues. */
+html:not(.dark) .app-shell [class*="text-"]:not([class*="text-red-"]):not([class*="text-rose-"]):not([class*="text-green-"]):not([class*="text-emerald-"]):not([class*="text-white"]) {
+  color: #0f172a !important;
+}
+
 .app-shell {
   position: relative;
   display: flex;
@@ -100,6 +106,7 @@ body {
 
 html:not(.dark) .surface-card {
   background: #ffffff;
+  backdrop-filter: none;
 }
 
 .dark .surface-card {

@@ -73,8 +73,9 @@ export default function InsightTiles() {
     },
   ];
 
-  const axisColor = theme === "dark" ? "#94a3b8" : "#475569";
-  const gridColor = theme === "dark" ? "#223048" : "#dbe5ee";
+  const axisColor = theme === "dark" ? "#94a3b8" : "#0f172a";
+  const gridColor = theme === "dark" ? "#223048" : "#cbd5e1";
+  const legendColor = theme === "dark" ? "#cbd5e1" : "#0f172a";
 
   return (
     <section className="space-y-4">
@@ -98,15 +99,15 @@ export default function InsightTiles() {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={monthlyData} barGap={8}>
               <CartesianGrid stroke={gridColor} strokeDasharray="4 4" />
-              <XAxis dataKey="label" tick={{ fill: axisColor, fontSize: 12 }} axisLine={false} tickLine={false} />
+              <XAxis dataKey="label" tick={{ fill: axisColor, fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
               <YAxis
-                tick={{ fill: axisColor, fontSize: 12 }}
+                tick={{ fill: axisColor, fontSize: 12, fontWeight: 600 }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(value) => `${Math.round(value / 1000)}k`}
               />
               <Tooltip content={<InsightsTooltip />} />
-              <Legend wrapperStyle={{ fontSize: "12px" }} />
+              <Legend wrapperStyle={{ fontSize: "12px", color: legendColor, fontWeight: 600 }} />
               <Bar dataKey="income" fill="#10b981" radius={[8, 8, 0, 0]} name="Income" />
               <Bar dataKey="expense" fill="#f43f5e" radius={[8, 8, 0, 0]} name="Expense" />
             </BarChart>
