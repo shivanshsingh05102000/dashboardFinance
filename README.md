@@ -1,16 +1,105 @@
-# React + Vite
+# Finance Dashboard UI - Zorvyn Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive finance dashboard built with React, Tailwind CSS, Context API, and Recharts.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
+```bash
+npm install
+```
+2. Start development server:
+```bash
+npm run dev
+```
+3. Build for production:
+```bash
+npm run build
+```
+4. Preview production build:
+```bash
+npm run preview
+```
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Dashboard overview with live summary cards:
+  - Total Balance
+  - Total Income
+  - Total Expenses
+- Recharts visualizations driven from one shared transaction store:
+  - Area chart: balance trend over recent months
+  - Pie chart: expense split by category
+  - Bar chart: monthly income vs expense comparison
+- Transactions page:
+  - Debounced search (description/category)
+  - Filter by transaction type
+  - Filter by category
+  - Sort by date/amount
+  - Responsive table + mobile card layout
+- RBAC (Role Based Access Control):
+  - Viewer: read-only experience
+  - Admin: Add, Edit, Delete, and Export CSV
+- Local persistence:
+  - Transactions persisted in localStorage
+  - Role preference persisted in localStorage
+  - Theme preference persisted in localStorage
+- Dark/Light theme toggle with polished contrast in both modes
 
-## Expanding the ESLint configuration
+## RBAC Demo Guide
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Open the role switcher in navbar.
+2. Set role to `Viewer`:
+   - Add/Edit/Delete/Export controls are hidden.
+   - Data is read-only.
+3. Set role to `Admin`:
+   - `Add Transaction` button is available.
+   - Edit/Delete actions appear on each transaction row/card.
+   - `Export CSV` is enabled.
+4. Add or edit a transaction and verify:
+   - Dashboard totals update immediately.
+   - All charts update from the same store.
+   - Insights page reflects the change.
+
+## Project Structure
+
+```text
+src/
+  components/
+    BalanceTrendChart.jsx
+    Footer.jsx
+    InsightTiles.jsx
+    Navbar.jsx
+    RoleSwitcher.jsx
+    SpendingPieChart.jsx
+    SummaryCards.jsx
+    ThemeToggle.jsx
+    TransactionModal.jsx
+    TransactionTable.jsx
+  context/
+    AppContext.jsx
+  data/
+    mockTransactions.js
+  pages/
+    Dashboard.jsx
+    Insights.jsx
+    Transactions.jsx
+  utils/
+    finance.js
+  App.jsx
+  index.css
+  main.jsx
+```
+
+## Tech Choices
+
+- React + Vite: fast iteration and clean component architecture
+- Tailwind CSS: rapid styling and responsive utility workflow
+- Context API + useReducer: centralized global store without Redux overhead
+- Recharts: reusable charting primitives for React dashboards
+
+## Notes
+
+- Seeded with 48 mock transactions across multiple months and categories.
+- All metrics and charts are computed from the shared transaction source.
+- Works across desktop and mobile widths (including compact 375px layouts).

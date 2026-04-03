@@ -1,32 +1,43 @@
-import SummaryCards from "../components/SummaryCards";
 import BalanceTrendChart from "../components/BalanceTrendChart";
 import SpendingPieChart from "../components/SpendingPieChart";
+import SummaryCards from "../components/SummaryCards";
+import { useAppContext } from "../context/AppContext";
 
 export default function Dashboard() {
+  const { transactions } = useAppContext();
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
+      <section className="fade-up surface-card rounded-3xl p-6 sm:p-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Overview</p>
+        <h1 className="page-title mt-2 text-4xl font-bold text-slate-900 dark:text-slate-50">Finance Dashboard</h1>
+        <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
+          Track balance health, expense concentration, and monthly momentum from one connected transaction store.
+        </p>
+      </section>
 
-      {/* Page header */}
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-white mb-2">Dashboard</h1>
-        <p className="text-gray-400 text-lg">Your financial overview at a glance</p>
-      </div>
-
-      {/* Summary cards */}
       <SummaryCards />
 
-      {/* Charts row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Balance Trend</h2>
-          <BalanceTrendChart />
+      {transactions.length === 0 ? (
+        <div className="surface-card rounded-3xl p-8 text-center">
+          <p className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">No transactions found</p>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Add data from the Transactions page to populate dashboard charts.</p>
         </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Spending Breakdown</h2>
-          <SpendingPieChart />
-        </div>
-      </div>
+      ) : (
+        <div className="grid gap-4 xl:grid-cols-2">
+          <article className="surface-card rounded-3xl p-5 sm:p-6">
+            <h2 className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">Balance Trend</h2>
+            <p className="mb-2 text-sm text-slate-600 dark:text-slate-300">Last 6 months of income and expense movement.</p>
+            <BalanceTrendChart />
+          </article>
 
+          <article className="surface-card rounded-3xl p-5 sm:p-6">
+            <h2 className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">Spending Breakdown</h2>
+            <p className="mb-2 text-sm text-slate-600 dark:text-slate-300">Category split of total expense volume.</p>
+            <SpendingPieChart />
+          </article>
+        </div>
+      )}
     </div>
   );
 }

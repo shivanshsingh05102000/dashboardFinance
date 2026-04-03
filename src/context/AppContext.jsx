@@ -1,228 +1,242 @@
-import { createContext, useContext, useReducer, useEffect, useMemo } from "react";
-import mockTransactions from "../data/mockTransactions";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
+import mockTransactions, { CATEGORIES } from "../data/mockTransactions";
+import { applyFilters } from "../utils/finance";
+
+const STORAGE_KEYS = {
+  transactions: "fd_transactions_v2",
+  role: "fd_role_v2",
+  theme: "fd_theme_v2",
+};
 
 export const ACTIONS = {
-  ADD_TRANSACTION:    "ADD_TRANSACTION",
-  EDIT_TRANSACTION:   "EDIT_TRANSACTION",
+  ADD_TRANSACTION: "ADD_TRANSACTION",
+  EDIT_TRANSACTION: "EDIT_TRANSACTION",
   DELETE_TRANSACTION: "DELETE_TRANSACTION",
-  SET_ROLE:           "SET_ROLE",
-  SET_FILTER:         "SET_FILTER",
-  RESET_FILTERS:      "RESET_FILTERS",
+  SET_ROLE: "SET_ROLE",
+  SET_FILTERS: "SET_FILTERS",
+  RESET_FILTERS: "RESET_FILTERS",
+  SET_THEME: "SET_THEME",
 };
-
 
 export const DEFAULT_FILTERS = {
-  search:   "",
-  type:     "all",       
-  category: "all",        
-  sortBy:   "date-desc", 
+  search: "",
+  type: "all",
+  category: "all",
+  sortBy: "date-desc",
 };
+
+function getSystemTheme() {
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function isValidTransactionList(value) {
+  return Array.isArray(value) && value.every((item) => item && item.id && item.date);
+}
 
 function getInitialState() {
   try {
-    const stored = localStorage.getItem("fdash_transactions");
-    const transactions = stored ? JSON.parse(stored) : mockTransactions;
+    const storedTransactions = JSON.parse(localStorage.getItem(STORAGE_KEYS.transactions));
+    const storedRole = localStorage.getItem(STORAGE_KEYS.role);
+    const storedTheme = localStorage.getItem(STORAGE_KEYS.theme);
+
     return {
-      transactions,
-      role: "viewer",
+      transactions: isValidTransactionList(storedTransactions) ? storedTransactions : mockTransactions,
+      role: storedRole === "admin" ? "admin" : "viewer",
       filters: { ...DEFAULT_FILTERS },
+      theme: storedTheme === "dark" || storedTheme === "light" ? storedTheme : getSystemTheme(),
     };
   } catch {
     return {
       transactions: mockTransactions,
       role: "viewer",
       filters: { ...DEFAULT_FILTERS },
+      theme: getSystemTheme(),
     };
   }
 }
 
+function createTransactionId() {
+  return `tx_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+}
+
 function appReducer(state, action) {
   switch (action.type) {
-
     case ACTIONS.ADD_TRANSACTION: {
-      const newTx = { ...action.payload, id: `t${Date.now()}` };
-      return { ...state, transactions: [newTx, ...state.transactions] };
-    }
+      const transaction = {
+        ...action.payload,
+        id: createTransactionId(),
+      };
 
-    case ACTIONS.EDIT_TRANSACTION: {
       return {
         ...state,
-        transactions: state.transactions.map((tx) =>
-          tx.id === action.payload.id ? { ...tx, ...action.payload } : tx
+        transactions: [transaction, ...state.transactions],
+      };
+    }
+
+    case ACTIONS.EDIT_TRANSACTION:
+      return {
+        ...state,
+        transactions: state.transactions.map((item) =>
+          item.id === action.payload.id ? { ...item, ...action.payload } : item,
         ),
       };
-    }
 
-    case ACTIONS.DELETE_TRANSACTION: {
+    case ACTIONS.DELETE_TRANSACTION:
       return {
         ...state,
-        transactions: state.transactions.filter((tx) => tx.id !== action.payload.id),
+        transactions: state.transactions.filter((item) => item.id !== action.payload.id),
       };
-    }
 
-    case ACTIONS.SET_ROLE: {
-      return { ...state, role: action.payload.role };
-    }
-
-    case ACTIONS.SET_FILTER: {
+    case ACTIONS.SET_ROLE:
       return {
         ...state,
-        filters: { ...state.filters, [action.payload.key]: action.payload.value },
+        role: action.payload.role === "admin" ? "admin" : "viewer",
       };
-    }
 
-    case ACTIONS.RESET_FILTERS: {
-      return { ...state, filters: { ...DEFAULT_FILTERS } };
-    }
+    case ACTIONS.SET_FILTERS:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          ...action.payload,
+        },
+      };
+
+    case ACTIONS.RESET_FILTERS:
+      return {
+        ...state,
+        filters: { ...DEFAULT_FILTERS },
+      };
+
+    case ACTIONS.SET_THEME:
+      return {
+        ...state,
+        theme: action.payload.theme,
+      };
 
     default:
       return state;
   }
 }
 
-
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const [state, dispatch] = useReducer(appReducer, null, getInitialState);
+  const [state, dispatch] = useReducer(appReducer, undefined, getInitialState);
 
   useEffect(() => {
-    try {
-      localStorage.setItem("fdash_transactions", JSON.stringify(state.transactions));
-    } catch {
-    }
+    localStorage.setItem(STORAGE_KEYS.transactions, JSON.stringify(state.transactions));
   }, [state.transactions]);
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.role, state.role);
+  }, [state.role]);
 
-  const addTransaction    = (payload)        => dispatch({ type: ACTIONS.ADD_TRANSACTION,    payload });
-  const editTransaction   = (payload)        => dispatch({ type: ACTIONS.EDIT_TRANSACTION,   payload });
-  const deleteTransaction = (id)             => dispatch({ type: ACTIONS.DELETE_TRANSACTION, payload: { id } });
-  const setRole           = (role)           => dispatch({ type: ACTIONS.SET_ROLE,           payload: { role } });
-  const setFilter         = (key, value)     => dispatch({ type: ACTIONS.SET_FILTER,         payload: { key, value } });
-  const resetFilters      = ()               => dispatch({ type: ACTIONS.RESET_FILTERS });
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.theme, state.theme);
+    document.documentElement.classList.toggle("dark", state.theme === "dark");
+  }, [state.theme]);
 
-  return (
-    <AppContext.Provider value={{
+  const addTransaction = useCallback(
+    (payload) => dispatch({ type: ACTIONS.ADD_TRANSACTION, payload }),
+    [],
+  );
+
+  const editTransaction = useCallback(
+    (payload) => dispatch({ type: ACTIONS.EDIT_TRANSACTION, payload }),
+    [],
+  );
+
+  const deleteTransaction = useCallback(
+    (id) => dispatch({ type: ACTIONS.DELETE_TRANSACTION, payload: { id } }),
+    [],
+  );
+
+  const setRole = useCallback(
+    (role) => dispatch({ type: ACTIONS.SET_ROLE, payload: { role } }),
+    [],
+  );
+
+  const setTheme = useCallback(
+    (theme) => dispatch({ type: ACTIONS.SET_THEME, payload: { theme } }),
+    [],
+  );
+
+  const setFilters = useCallback(
+    (payload) => dispatch({ type: ACTIONS.SET_FILTERS, payload }),
+    [],
+  );
+
+  const resetFilters = useCallback(
+    () => dispatch({ type: ACTIONS.RESET_FILTERS }),
+    [],
+  );
+
+  const categories = useMemo(() => {
+    const availableCategories = state.transactions.map((item) => item.category);
+    return Array.from(new Set([...CATEGORIES, ...availableCategories]));
+  }, [state.transactions]);
+
+  const filteredTransactions = useMemo(
+    () => applyFilters(state.transactions, state.filters),
+    [state.transactions, state.filters],
+  );
+
+  const value = useMemo(
+    () => ({
       transactions: state.transactions,
-      role:         state.role,
-      filters:      state.filters,
-      isAdmin:      state.role === "admin",
+      filteredTransactions,
+      categories,
+      role: state.role,
+      theme: state.theme,
+      filters: state.filters,
+      isAdmin: state.role === "admin",
       addTransaction,
       editTransaction,
       deleteTransaction,
       setRole,
-      setFilter,
+      setTheme,
+      setFilters,
       resetFilters,
-    }}>
-      {children}
-    </AppContext.Provider>
+    }),
+    [
+      state.transactions,
+      filteredTransactions,
+      categories,
+      state.role,
+      state.theme,
+      state.filters,
+      addTransaction,
+      editTransaction,
+      deleteTransaction,
+      setRole,
+      setTheme,
+      setFilters,
+      resetFilters,
+    ],
   );
-}
 
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+}
 
 export function useAppContext() {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error("useAppContext must be used inside <AppProvider>");
-  return ctx;
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within AppProvider");
+  }
+  return context;
 }
-
 
 export function useFilteredTransactions() {
-  const { transactions, filters } = useAppContext();
-
-  return useMemo(() => {
-    let result = [...transactions];
-
-    if (filters.search.trim()) {
-      const q = filters.search.toLowerCase();
-      result = result.filter(
-        (tx) =>
-          tx.description.toLowerCase().includes(q) ||
-          tx.category.toLowerCase().includes(q)
-      );
-    }
-
-
-    if (filters.type !== "all") {
-      result = result.filter((tx) => tx.type === filters.type);
-    }
-
-    if (filters.category !== "all") {
-      result = result.filter((tx) => tx.category === filters.category);
-    }
-
-
-    result.sort((a, b) => {
-      switch (filters.sortBy) {
-        case "date-desc":   return new Date(b.date) - new Date(a.date);
-        case "date-asc":    return new Date(a.date) - new Date(b.date);
-        case "amount-desc": return b.amount - a.amount;
-        case "amount-asc":  return a.amount - b.amount;
-        default:            return 0;
-      }
-    });
-
-    return result;
-  }, [transactions, filters]);
-}
-
-export function useSummaryStats() {
-  const { transactions } = useAppContext();
-
-  return useMemo(() => {
-    const totalIncome  = transactions
-      .filter((tx) => tx.type === "income")
-      .reduce((sum, tx) => sum + tx.amount, 0);
-
-    const totalExpense = transactions
-      .filter((tx) => tx.type === "expense")
-      .reduce((sum, tx) => sum + tx.amount, 0);
-
-    const balance = totalIncome - totalExpense;
-
-    const byCategory = transactions
-      .filter((tx) => tx.type === "expense")
-      .reduce((acc, tx) => {
-        acc[tx.category] = (acc[tx.category] || 0) + tx.amount;
-        return acc;
-      }, {});
-
-    const topCategory = Object.entries(byCategory).sort((a, b) => b[1] - a[1])[0];
-
-
-    const monthly = {};
-    transactions.forEach((tx) => {
-      const key = tx.date.slice(0, 7); // "YYYY-MM"
-      if (!monthly[key]) monthly[key] = { income: 0, expense: 0 };
-      monthly[key][tx.type] += tx.amount;
-    });
-
-    const monthlyArray = Object.entries(monthly)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([month, data]) => ({
-        month,
-        label: new Date(month + "-01").toLocaleString("default", {
-          month: "short",
-          year:  "2-digit",
-        }),
-        income:  data.income,
-        expense: data.expense,
-        net:     data.income - data.expense,
-      }));
-
-    return {
-      totalIncome,
-      totalExpense,
-      balance,
-      byCategory,
-      topCategory: topCategory
-        ? { name: topCategory[0], amount: topCategory[1] }
-        : null,
-      monthlyArray,
-      savingsRate:
-        totalIncome > 0
-          ? ((balance / totalIncome) * 100).toFixed(1)
-          : "0.0",
-    };
-  }, [transactions]);
+  const { filteredTransactions } = useAppContext();
+  return filteredTransactions;
 }

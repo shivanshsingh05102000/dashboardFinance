@@ -1,43 +1,28 @@
 import { useAppContext } from "../context/AppContext";
 
 const ROLES = [
-  { value: "viewer", label: "👁️  Viewer" },
-  { value: "admin",  label: "⚡  Admin"  },
+  { value: "viewer", label: "Viewer" },
+  { value: "admin", label: "Admin" },
 ];
 
-export default function RoleSwitcher() {
+export default function RoleSwitcher({ compact = false }) {
   const { role, setRole } = useAppContext();
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-sm text-gray-400 hidden sm:block">Role:</span>
+    <label className={`flex items-center gap-2 ${compact ? "w-full" : ""}`}>
+      {!compact && <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Role</span>}
 
-      <div className="relative">
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="appearance-none cursor-pointer bg-gray-800 border border-gray-700 text-white text-sm font-medium rounded-lg pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:border-indigo-500 transition-colors"
-        >
-          {ROLES.map((r) => (
-            <option key={r.value} value={r.value}>{r.label}</option>
-          ))}
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Live pill */}
-      <span className={`hidden sm:inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full border transition-all ${
-        role === "admin"
-          ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/30"
-          : "bg-gray-800 text-gray-400 border-gray-700"
-      }`}>
-        <span className={`w-2 h-2 rounded-full ${role === "admin" ? "bg-indigo-400" : "bg-gray-500"}`} />
-        {role === "admin" ? "Admin" : "Viewer"}
-      </span>
-    </div>
+      <select
+        value={role}
+        onChange={(event) => setRole(event.target.value)}
+        className="h-10 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm font-semibold text-slate-700 outline-none ring-0 transition hover:border-[color:var(--line-strong)] focus:border-cyan-400 dark:text-slate-200"
+      >
+        {ROLES.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }

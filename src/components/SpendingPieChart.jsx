@@ -1,29 +1,29 @@
-import { useAppContext } from "../context/AppContext";
-import { getCategoryBreakdown, formatCurrency } from "../utils/finance";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { CATEGORY_COLORS } from "../data/mockTransactions";
-import {
-  PieChart, Pie, Cell, Tooltip,
-  ResponsiveContainer, Legend
-} from "recharts";
+import { useAppContext } from "../context/AppContext";
+import { formatCurrency, getExpenseBreakdown } from "../utils/finance";
 
-function CustomTooltip({ active, payload }) {
+function PieTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
-  const { name, value } = payload[0];
+
+  const { name, value, payload: row } = payload[0];
+
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 text-xs">
-      <p className="text-gray-300 font-medium">{name}</p>
-      <p className="text-white font-bold mt-1">{formatCurrency(value)}</p>
+    <div className="surface-strong rounded-xl p-3 shadow-lg">
+      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{name}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-300">{formatCurrency(value)}</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">{row.percentage}% of expenses</p>
     </div>
   );
 }
 
-function CustomLegend({ payload }) {
+function PieLegend({ payload }) {
   return (
-    <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-2">
+    <div className="mt-2 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3">
       {payload.map((entry) => (
-        <div key={entry.value} className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full" style={{ background: entry.color }} />
-          <span className="text-xs text-gray-400">{entry.value}</span>
+        <div key={entry.value} className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
+          <span className="truncate">{entry.value}</span>
         </div>
       ))}
     </div>
@@ -32,38 +32,36 @@ function CustomLegend({ payload }) {
 
 export default function SpendingPieChart() {
   const { transactions } = useAppContext();
-  const data = getCategoryBreakdown(transactions);
+  const data = getExpenseBreakdown(transactions);
 
   if (!data.length) {
-    return (
-      <div className="flex items-center justify-center h-48 text-gray-500 text-sm">
-        No expense data available
-      </div>
-    );
+    return <p className="text-sm text-slate-500 dark:text-slate-400">No expense categories to chart yet.</p>;
   }
 
   return (
-    <ResponsiveContainer width="100%" height={240}>
-      <PieChart>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="45%"
-          innerRadius={60}
-          outerRadius={90}
-          paddingAngle={3}
-          dataKey="value"
-        >
-          {data.map((entry) => (
-            <Cell
-              key={entry.name}
-              fill={CATEGORY_COLORS[entry.name] || "#6366f1"}
-            />
-          ))}
-        </Pie>
-        <Tooltip content={<CustomTooltip />} />
-        <Legend content={<CustomLegend />} />
-      </PieChart>
-    </ResponsiveContainer>
+    <div className="h-72 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="45%"
+            innerRadius={54}
+            outerRadius={94}
+            paddingAngle={2}
+            stroke="transparent"
+          >
+            {data.map((entry) => (
+              <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name] || "#64748b"} />
+            ))}
+          </Pie>
+
+          <Tooltip content={<PieTooltip />} />
+          <Legend content={<PieLegend />} />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
