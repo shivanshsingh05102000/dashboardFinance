@@ -12,7 +12,7 @@ export default function Dashboard() {
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-800 dark:text-slate-400">Overview</p>
         <h1 className="page-title mt-2 text-4xl font-bold text-slate-900 dark:text-slate-50">Finance Dashboard</h1>
         <p className="mt-2 max-w-2xl text-sm text-slate-800 dark:text-slate-300">
-          Track balance health, expense concentration, and monthly momentum from one connected transaction store.
+          Quick snapshot of balance, cash flow, and where most of the spending is happening.
         </p>
       </section>
 
@@ -21,7 +21,7 @@ export default function Dashboard() {
       {transactions.length === 0 ? (
         <div className="surface-card rounded-3xl p-8 text-center">
           <p className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">No transactions found</p>
-          <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">Add data from the Transactions page to populate dashboard charts.</p>
+          <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">Add a few entries from the Transactions page to populate charts and cards.</p>
         </div>
       ) : (
         <div className="grid gap-4 xl:grid-cols-2">

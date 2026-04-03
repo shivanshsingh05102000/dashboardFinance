@@ -9,6 +9,7 @@ const SORT_OPTIONS = [
   { value: "amount-desc", label: "Highest amount" },
   { value: "amount-asc", label: "Lowest amount" },
 ];
+const SEARCH_DEBOUNCE_MS = 280;
 
 function TypePill({ value }) {
   const isIncome = value === "income";
@@ -78,9 +79,10 @@ export default function TransactionTable() {
   const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
+    // Debounce prevents re-filtering the table on every keystroke.
     const timer = setTimeout(() => {
       setFilters({ search: searchInput });
-    }, 280);
+    }, SEARCH_DEBOUNCE_MS);
 
     return () => clearTimeout(timer);
   }, [searchInput, setFilters]);
