@@ -34,7 +34,7 @@ function DeleteConfirm({ transaction, onClose, onConfirm }) {
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/45 p-4">
       <div className="surface-card w-full max-w-md rounded-2xl p-5">
         <h4 className="page-title text-xl font-bold text-slate-900 dark:text-slate-50">Delete Transaction?</h4>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+        <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">
           This will remove <span className="font-semibold">{transaction.description}</span> from your records.
         </p>
 
@@ -42,7 +42,7 @@ function DeleteConfirm({ transaction, onClose, onConfirm }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             Cancel
           </button>
@@ -130,7 +130,7 @@ export default function TransactionTable() {
         <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h2 className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">Transaction Explorer</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
+            <p className="text-sm text-slate-800 dark:text-slate-300">
               Showing {tableSummary.shown} of {tableSummary.total} transactions
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function TransactionTable() {
               <button
                 type="button"
                 onClick={handleExport}
-                className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
               >
                 Export CSV
               </button>
@@ -159,7 +159,7 @@ export default function TransactionTable() {
             <button
               type="button"
               onClick={clearFilters}
-              className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="rounded-xl border border-[color:var(--line)] px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               Reset
             </button>
@@ -168,23 +168,23 @@ export default function TransactionTable() {
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <label className="grid gap-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-800 dark:text-slate-400">
               Search
             </span>
             <input
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
               placeholder="Description or category"
-              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-700 outline-none transition focus:border-cyan-400 dark:text-slate-100"
+              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-900 outline-none transition focus:border-cyan-400 dark:text-slate-100"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Type</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-800 dark:text-slate-400">Type</span>
             <select
               value={filters.type}
               onChange={(event) => setFilters({ type: event.target.value })}
-              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-700 outline-none transition focus:border-cyan-400 dark:text-slate-100"
+              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-900 outline-none transition focus:border-cyan-400 dark:text-slate-100"
             >
               <option value="all">All</option>
               <option value="income">Income</option>
@@ -193,11 +193,11 @@ export default function TransactionTable() {
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Category</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-800 dark:text-slate-400">Category</span>
             <select
               value={filters.category}
               onChange={(event) => setFilters({ category: event.target.value })}
-              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-700 outline-none transition focus:border-cyan-400 dark:text-slate-100"
+              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-900 outline-none transition focus:border-cyan-400 dark:text-slate-100"
             >
               <option value="all">All Categories</option>
               {categories.map((category) => (
@@ -209,11 +209,11 @@ export default function TransactionTable() {
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Sort</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-slate-800 dark:text-slate-400">Sort</span>
             <select
               value={filters.sortBy}
               onChange={(event) => setFilters({ sortBy: event.target.value })}
-              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-700 outline-none transition focus:border-cyan-400 dark:text-slate-100"
+              className="h-11 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm text-slate-900 outline-none transition focus:border-cyan-400 dark:text-slate-100"
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -225,7 +225,7 @@ export default function TransactionTable() {
         </div>
 
         {!isAdmin && (
-          <p className="mt-3 rounded-xl border border-[color:var(--line)] bg-slate-500/10 px-3 py-2 text-xs text-slate-600 dark:text-slate-300">
+          <p className="mt-3 rounded-xl border border-[color:var(--line)] bg-slate-500/10 px-3 py-2 text-xs text-slate-800 dark:text-slate-300">
             Viewer mode is read-only. Switch to Admin to add, edit, delete, and export data.
           </p>
         )}
@@ -246,7 +246,7 @@ export default function TransactionTable() {
                 ].map((head) => (
                   <th
                     key={head || "empty"}
-                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-800 dark:text-slate-400"
                   >
                     {head}
                   </th>
@@ -257,9 +257,9 @@ export default function TransactionTable() {
             <tbody>
               {filteredTransactions.map((item) => (
                 <tr key={item.id} className="border-t border-[color:var(--line)]">
-                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{formatDate(item.date)}</td>
+                  <td className="px-4 py-3 text-slate-800 dark:text-slate-300">{formatDate(item.date)}</td>
                   <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">{item.description}</td>
-                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{item.category}</td>
+                  <td className="px-4 py-3 text-slate-800 dark:text-slate-300">{item.category}</td>
                   <td className="px-4 py-3">
                     <TypePill value={item.type} />
                   </td>
@@ -273,7 +273,7 @@ export default function TransactionTable() {
                         <button
                           type="button"
                           onClick={() => openEditModal(item)}
-                          className="rounded-lg border border-[color:var(--line)] px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                          className="rounded-lg border border-[color:var(--line)] px-3 py-1.5 text-xs font-semibold text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
                           Edit
                         </button>
@@ -301,8 +301,8 @@ export default function TransactionTable() {
                 <TypePill value={item.type} />
               </div>
 
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                {formatDate(item.date)} · {item.category}
+              <p className="mt-1 text-xs text-slate-800 dark:text-slate-400">
+                {formatDate(item.date)} - {item.category}
               </p>
 
               <p className="mt-2 text-base font-bold text-slate-800 dark:text-slate-100">
@@ -315,7 +315,7 @@ export default function TransactionTable() {
                   <button
                     type="button"
                     onClick={() => openEditModal(item)}
-                    className="rounded-lg border border-[color:var(--line)] px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                    className="rounded-lg border border-[color:var(--line)] px-3 py-1.5 text-xs font-semibold text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                   >
                     Edit
                   </button>
@@ -335,7 +335,7 @@ export default function TransactionTable() {
         {filteredTransactions.length === 0 && (
           <div className="p-8 text-center">
             <p className="page-title text-xl font-semibold text-slate-800 dark:text-slate-100">No transactions match these filters.</p>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Try resetting filters or adding a new transaction.</p>
+            <p className="mt-1 text-sm text-slate-800 dark:text-slate-300">Try resetting filters or adding a new transaction.</p>
           </div>
         )}
       </div>

@@ -3,14 +3,14 @@
 
 :root {
   color-scheme: light;
-  --bg-main: #f6fafc;
-  --surface: rgba(255, 255, 255, 0.82);
+  --bg-main: #eef4fa;
+  --surface: rgba(255, 255, 255, 0.96);
   --surface-strong: #ffffff;
-  --surface-soft: rgba(248, 250, 252, 0.86);
-  --line: rgba(15, 23, 42, 0.09);
-  --line-strong: rgba(15, 23, 42, 0.16);
-  --text-main: #0f172a;
-  --text-muted: #475569;
+  --surface-soft: rgba(247, 250, 253, 0.98);
+  --line: rgba(15, 23, 42, 0.13);
+  --line-strong: rgba(15, 23, 42, 0.22);
+  --text-main: #020617;
+  --text-muted: #1e293b;
   --chart-grid: #dbe5ee;
 }
 
@@ -72,7 +72,7 @@ body {
   right: -70px;
   height: 340px;
   width: 340px;
-  background: rgba(56, 189, 248, 0.26);
+  background: rgba(56, 189, 248, 0.12);
 }
 
 .app-glow-two {
@@ -80,7 +80,7 @@ body {
   left: -120px;
   height: 390px;
   width: 390px;
-  background: rgba(245, 158, 11, 0.2);
+  background: rgba(245, 158, 11, 0.08);
 }
 
 .dark .app-glow-one {
@@ -96,6 +96,10 @@ body {
   border: 1px solid var(--line);
   backdrop-filter: blur(14px);
   box-shadow: 0 16px 36px rgba(2, 6, 23, 0.08);
+}
+
+html:not(.dark) .surface-card {
+  background: #ffffff;
 }
 
 .dark .surface-card {
@@ -140,7 +144,7 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .dark input::placeholder,

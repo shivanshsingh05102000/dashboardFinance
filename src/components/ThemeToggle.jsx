@@ -9,7 +9,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-10 items-center gap-2 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm font-semibold text-slate-700 transition hover:border-[color:var(--line-strong)] hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+      className="inline-flex h-10 items-center gap-2 rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] px-3 text-sm font-semibold text-slate-800 transition hover:border-[color:var(--line-strong)] hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       {isDark ? (

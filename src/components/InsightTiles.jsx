@@ -23,9 +23,9 @@ function InsightsTooltip({ active, payload, label }) {
 
   return (
     <div className="surface-strong rounded-xl p-3 shadow-lg">
-      <p className="mb-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="mb-1 text-xs font-semibold text-slate-800 dark:text-slate-400">{label}</p>
       {payload.map((item) => (
-        <p key={item.name} className="text-sm text-slate-700 dark:text-slate-200">
+        <p key={item.name} className="text-sm text-slate-800 dark:text-slate-200">
           <span style={{ color: item.color }} className="font-semibold">
             {item.name}
           </span>
@@ -44,7 +44,7 @@ export default function InsightTiles() {
     return (
       <div className="surface-card rounded-3xl p-8 text-center">
         <p className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">No data available for insights</p>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Add transactions to unlock trends and performance metrics.</p>
+        <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">Add transactions to unlock trends and performance metrics.</p>
       </div>
     );
   }
@@ -79,11 +79,11 @@ export default function InsightTiles() {
   return (
     <section className="space-y-4">
       <article className="surface-card rounded-3xl p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Highest Spending Category</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-800 dark:text-slate-400">Highest Spending Category</p>
         <p className="page-title mt-2 text-3xl font-bold text-slate-900 dark:text-slate-50">{topCategory ? topCategory.name : "No expense data"}</p>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+        <p className="mt-1 text-sm text-slate-800 dark:text-slate-300">
           {topCategory
-            ? `${formatCurrency(topCategory.value)} · ${topCategory.percentage}% of total expenses`
+            ? `${formatCurrency(topCategory.value)} - ${topCategory.percentage}% of total expenses`
             : "Add expense transactions to see category share."}
         </p>
       </article>
@@ -91,7 +91,7 @@ export default function InsightTiles() {
       <article className="surface-card rounded-3xl p-5 sm:p-6">
         <div className="mb-4">
           <h3 className="page-title text-2xl font-bold text-slate-900 dark:text-slate-50">Monthly Income vs Expense</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-300">Compare month-over-month cash movement and spending pressure.</p>
+          <p className="text-sm text-slate-800 dark:text-slate-300">Compare month-over-month cash movement and spending pressure.</p>
         </div>
 
         <div className="h-80 w-full">
@@ -117,9 +117,9 @@ export default function InsightTiles() {
       <div className="grid gap-4 md:grid-cols-3">
         {metrics.map((metric) => (
           <article key={metric.title} className="surface-card rounded-3xl p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{metric.title}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-800 dark:text-slate-400">{metric.title}</p>
             <p className="page-title mt-2 text-2xl font-bold text-slate-900 dark:text-slate-50">{metric.value}</p>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{metric.detail}</p>
+            <p className="mt-1 text-sm text-slate-800 dark:text-slate-300">{metric.detail}</p>
           </article>
         ))}
       </div>

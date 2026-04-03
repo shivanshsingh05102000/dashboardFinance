@@ -41,21 +41,27 @@ export default function SummaryCards() {
       title: "Total Balance",
       value: formatCurrency(summary.balance),
       hint: `${summary.savingsRate}% savings rate`,
-      accent: "from-cyan-500/15 to-teal-500/20 text-teal-600 dark:text-teal-300",
+      accent: "from-cyan-500/15 to-teal-500/20",
+      valueColor: "text-slate-900 dark:text-slate-100",
+      iconColor: "text-teal-700 dark:text-teal-300",
     },
     {
       id: "income",
       title: "Total Income",
       value: formatCurrency(summary.totalIncome),
       hint: `${incomeCount} income transactions`,
-      accent: "from-emerald-500/15 to-lime-500/20 text-emerald-600 dark:text-emerald-300",
+      accent: "from-emerald-500/15 to-lime-500/20",
+      valueColor: "text-slate-900 dark:text-slate-100",
+      iconColor: "text-emerald-700 dark:text-emerald-300",
     },
     {
       id: "expense",
       title: "Total Expenses",
       value: formatCurrency(summary.totalExpense),
       hint: `${expenseCount} expense transactions`,
-      accent: "from-rose-500/15 to-orange-500/20 text-rose-600 dark:text-rose-300",
+      accent: "from-rose-500/15 to-orange-500/20",
+      valueColor: "text-slate-900 dark:text-slate-100",
+      iconColor: "text-rose-700 dark:text-rose-300",
     },
   ];
 
@@ -64,14 +70,14 @@ export default function SummaryCards() {
       {cards.map((card) => (
         <article key={card.id} className={`surface-card fade-up rounded-3xl bg-gradient-to-br p-5 ${card.accent}`}>
           <div className="mb-4 flex items-start justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{card.title}</p>
-            <div className="rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] p-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-800 dark:text-slate-400">{card.title}</p>
+            <div className={`rounded-xl border border-[color:var(--line)] bg-[color:var(--surface-strong)] p-2 ${card.iconColor}`}>
               <CardIcon type={card.id} />
             </div>
           </div>
 
-          <p className="page-title text-3xl font-bold leading-none">{card.value}</p>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{card.hint}</p>
+          <p className={`page-title text-3xl font-bold leading-none ${card.valueColor}`}>{card.value}</p>
+          <p className="mt-2 text-sm text-slate-800 dark:text-slate-300">{card.hint}</p>
         </article>
       ))}
     </section>

@@ -16,9 +16,9 @@ function ChartTooltip({ active, payload, label }) {
 
   return (
     <div className="surface-strong rounded-xl p-3 shadow-lg">
-      <p className="mb-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="mb-1 text-xs font-semibold text-slate-800 dark:text-slate-400">{label}</p>
       {payload.map((item) => (
-        <p key={item.dataKey} className="text-sm text-slate-700 dark:text-slate-200">
+        <p key={item.dataKey} className="text-sm text-slate-800 dark:text-slate-200">
           <span style={{ color: item.color }} className="font-semibold">
             {item.name}
           </span>
@@ -35,7 +35,7 @@ export default function BalanceTrendChart() {
   const data = getRecentMonthlyData(transactions, 6);
 
   if (!data.length) {
-    return <p className="text-sm text-slate-500 dark:text-slate-400">No monthly trend available.</p>;
+    return <p className="text-sm text-slate-800 dark:text-slate-400">No monthly trend available.</p>;
   }
 
   const colors =

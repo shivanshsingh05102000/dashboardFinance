@@ -15,7 +15,7 @@ function getLinkClasses(isActive) {
     "rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200",
     isActive
       ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
-      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
+      : "text-slate-800 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
   ].join(" ");
 }
 
@@ -33,7 +33,7 @@ export default function Navbar() {
 
           <div>
             <p className="page-title text-lg font-bold text-slate-900 dark:text-slate-50">Finance Desk</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Role: {role === "admin" ? "Admin" : "Viewer"}</p>
+            <p className="text-xs text-slate-800 dark:text-slate-400">Role: {role === "admin" ? "Admin" : "Viewer"}</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[color:var(--line)] text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[color:var(--line)] text-slate-800 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 md:hidden"
           onClick={() => setMobileOpen((value) => !value)}
           type="button"
           aria-label="Toggle navigation"
