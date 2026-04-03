@@ -4,6 +4,10 @@
 
 A modern, responsive finance dashboard built with React, Tailwind CSS, Context API, and Recharts.
 
+## Demo
+
+![Finance Dashboard Demo](docs/screen-capture-20-trimmed.gif)
+
 ## Quick Start
 
 1. Install dependencies:
