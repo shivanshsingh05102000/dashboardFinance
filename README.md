@@ -1,4 +1,4 @@
-Link https://dashboard-finance-ui-git-main-shivanshsingh05102000s-projects.vercel.app/insights
+Link https://dashboard-finance-ui.vercel.app?_vercel_share=bz2fxlkEJ9YEDpw52w5ZWlCW0dNvMrt8
 
 # Finance Dashboard UI - Zorvyn Assessment
 
