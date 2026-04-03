@@ -1,4 +1,4 @@
-![Uploading screen-capture-20-trimmed.gif…]()
+Link https://dashboard-finance-ui-git-main-shivanshsingh05102000s-projects.vercel.app/insights
 
 # Finance Dashboard UI - Zorvyn Assessment
 
