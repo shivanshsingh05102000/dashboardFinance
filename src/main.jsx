@@ -5,6 +5,6 @@ import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />  //scorpy was here
+    <App />  //scorpy was hereksdjbfkef
   </StrictMode>,
 )
