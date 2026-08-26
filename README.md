@@ -1,10 +1,29 @@
-# Finance Dashboard UI (Zorvyn Assessment)
+<h1 align="center">Finance Dashboard</h1>
 
-This project is my frontend assignment submission for the Zorvyn Finance Dashboard task.
+<p align="center">
+  <b>A React dashboard for tracking balance, transactions and spending insights</b><br/>
+  Role-based UI · charts · search, filter &amp; sort · light/dark · localStorage persistence
+</p>
 
-It is a React dashboard where users can track balance, review transactions, and view quick insights from the same shared data store.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Recharts-FF6384?style=flat-square"/>
+</p>
 
-Live URL: https://dashboard-finance-ui.vercel.app?_vercel_share=bz2fxlkEJ9YEDpw52w5ZWlCW0dNvMrt8
+<p align="center">
+  <a href="https://dashboard-finance-ui.vercel.app"><b>Live demo →</b></a>
+</p>
+
+---
+
+Every number on screen — the summary cards, both charts and the insights panel —
+is derived from one shared transaction store, so filtering or editing a
+transaction updates the whole dashboard consistently. State is handled with
+Context +  and persisted to localStorage.
+
+<sub>Originally built as a frontend assessment for Zorvyn.</sub>
 
 ## Demo
 
