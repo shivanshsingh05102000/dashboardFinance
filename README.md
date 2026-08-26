@@ -21,7 +21,7 @@
 Every number on screen — the summary cards, both charts and the insights panel —
 is derived from one shared transaction store, so filtering or editing a
 transaction updates the whole dashboard consistently. State is handled with
-Context +  and persisted to localStorage.
+Context + `useReducer` and persisted to localStorage.
 
 <sub>Originally built as a frontend assessment for Zorvyn.</sub>
 
